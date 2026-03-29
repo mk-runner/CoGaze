@@ -54,7 +54,7 @@ torchvision==0.19.1
 
 | Dataset       | Pretrained Model                                                                                        | Report Generation Model                                                                                     | Outputs                                                                              |
 | ------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **MIMIC-CXR** | [CoGaze Pretrained Checkpoint](https://huggingface.co/MK-runner/CoGaze/blob/main/mimic_pretrain_best_model.pt) | [CoGaze (DistilGPT2)](https://huggingface.co/MK-runner/CoGaze/blob/main/mimic_report_generation_best_model.pt) | [Generated Reports](https://github.com/mk-runner/CoGaze/tree/main/generated_reports) |
+| **MIMIC-CXR** | [CoGaze Pretrained Checkpoint](https://huggingface.co/MK-runner/CoGaze/blob/main/mimic_pretrain_best_model.pt) | [CoGaze (DistilGPT2)](https://huggingface.co/MK-runner/CoGaze/blob/main/distilgpt2_mimic_free_text_report_generation_best_model.pt) | [Generated Reports](https://github.com/mk-runner/CoGaze/tree/main/generated_reports) |
 
 ---
 
