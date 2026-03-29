@@ -165,10 +165,10 @@ def setup_arguments():
     logger = SetLogger(f'{args["exp_dir_trial"]}/log_{extension}.log', 'a')
 
     # determine absolute path for all checkpoints
-    ckpt_name_list = ['chexbert_path', 'radgraph_path', "bert_path", 'llama_path']
-
+    ckpt_name_list = ['chexbert_path', 'radgraph_path']
     if not args['online_ckpt']:
-        ckpt_name_list.extend(['rad_dino_path', 'cxr_bert_path', 'distilgpt2_path'])
+        ckpt_name_list.extend(['rad_dino_path', 'llama_path', 'cxr_bert_path', 'distilgpt2_path', "bert_path"])
+        
     for ckpt_name in ckpt_name_list:
         args[ckpt_name] = os.path.join(args['ckpt_zoo_dir'], args[ckpt_name])
 
