@@ -6,7 +6,7 @@
 [![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow)](https://huggingface.co/MK-runner/PriorRG)
 [![BibTeX](https://img.shields.io/badge/%F0%9F%93%96-BibTeX-yellow)](#-citation)
 
-<img src="generated_reports/figure2.png" alt="Framework Overview" width="75%">
+<img src="generated_reports/fig2.png" alt="Framework Overview" width="75%">
 
 </div>
 
