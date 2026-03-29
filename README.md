@@ -149,9 +149,7 @@ bash script/free-text-report-generation-llm.sh
 #### Free-text (Inference)
 
 ```bash
-bash script/free-text-report-generation-gpt2.sh \
-  --phase inference \
-  --test_ckpt_path YOUR_MODEL_PATH
+bash script/free-text-report-generation-gpt2-inference.sh
 ```
 
 #### Structured Reports
