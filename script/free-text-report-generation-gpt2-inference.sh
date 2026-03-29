@@ -8,7 +8,6 @@ CUDA_VISIBLE_DEVICES=1 python ../main_v0702_v0826.py \
 --ann_path "cogaze_mimic_cxr_annotation_similar_case_v0702_v0826.json" \
 --images_dir "MIMIC-CXR/files" \
 --view_position_path "/MIMIC-CXR/view-positions-dict.json" \
---eye_gaze_dir "/MIMIC-Eye-Gaze-Heatmap/" \
 --batch_size 64 \
 --test_batch_size 64 \
 --num_workers 12 \
