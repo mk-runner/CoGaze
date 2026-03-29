@@ -5,7 +5,7 @@ CUDA_VISIBLE_DEVICES=0 python ../main_v0702_v0826.py \
 --phase "finetune" \
 --data_name "mimic_cxr" \
 --version "v0702-v0826-pretrain" \
---ann_path "six_work_mimic_cxr_annotation_similar_case_v0702_gaze.json" \
+--ann_path "cogaze_mimic_cxr_annotation_similar_case_v0702_gaze.json" \
 --images_dir "/MIMIC-CXR/files" \
 --view_position_path "/MIMIC-CXR/view-positions-dict.json" \
 --eye_gaze_dir "/MIMIC-Eye-Gaze-Heatmap" \
@@ -19,5 +19,5 @@ CUDA_VISIBLE_DEVICES=0 python ../main_v0702_v0826.py \
 --learning_rate 5.0e-5 \
 --save_best_model "yes" \
 --save_last_model 'no' \
---ckpt_zoo_dir "/checkpoints" \
+--ckpt_zoo_dir "ckpt_zoo_dir/" \
 --max_epochs 50
