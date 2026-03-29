@@ -6,7 +6,7 @@ CUDA_VISIBLE_DEVICES=1 python ../main_v0702_v0826.py \
 --data_name "mimic_cxr" \
 --version "v0702-v0826-final-v1014-beam10" \
 --ann_path "cogaze_mimic_cxr_annotation_similar_case_v0702_v0826.json" \
---images_dir "files" \
+--images_dir "MIMIC-CXR/files" \
 --view_position_path "/MIMIC-CXR/view-positions-dict.json" \
 --eye_gaze_dir "/MIMIC-Eye-Gaze-Heatmap/" \
 --batch_size 64 \
