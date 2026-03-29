@@ -1,10 +1,10 @@
 <div align="center">
 
-# 🩺 Seeing Like Radiologists: Context- and Gaze-Guided Vision-Language Pretraining for Chest X-rays
+# 🩺 CoGaze: Seeing Like Radiologists: Context- and Gaze-Guided Vision-Language Pretraining for Chest X-rays
 
 [![arXiv](https://img.shields.io/badge/arXiv-2508.05353-b31b1b.svg)](https://arxiv.org/abs/2508.05353)
-[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow)](https://huggingface.co/MK-runner/CoGaze)
-[![BibTeX](https://img.shields.io/badge/%F0%9F%93%96-BibTeX-yellow)](#-citation)
+[![HuggingFace](https://img.shields.io/badge/🤗-HuggingFace-yellow)](https://huggingface.co/MK-runner/CoGaze)
+[![BibTeX](https://img.shields.io/badge/📖-BibTeX-yellow)](#-citation)
 
 <img src="generated_reports/fig2.png" alt="Framework Overview" width="100%">
 
@@ -12,102 +12,151 @@
 
 ---
 
+## ✨ Overview
+
+**CoGaze** is a vision-language pretraining framework designed for **chest X-ray understanding**, inspired by how radiologists interpret medical images.  
+
+It integrates:
+
+- 👁️ Gaze information is used during pretraining, while downstream tasks (report generation, classification, and segmentation) do not require gaze data.
+- 🧠 Context-aware reasoning  
+- 📝 Free-text & structured report generation, supervised & zero-shot classification, segmentation, image-text retrieval
+
+---
+
 ## 📰 News
 
-- **[2026-03-28]** Official code and [model weights](https://huggingface.co/MK-runner/CoGaze) are now public.
+- **[2026-03-28]** 🚀 Official code and pretrained models are released on [Hugging Face](https://huggingface.co/MK-runner/CoGaze)
 
 ---
 
 ## ⚙️ Installation
 
 ```bash
-# Create environment
-conda create -n priorrg python=3.10.16
-conda activate CoGaze
+# Create conda environment
+conda create -n cogaze python=3.10.16
+conda activate cogaze
 ````
 
-**Core dependencies:**
+### 📦 Core Dependencies
 
-* `transformers==4.43.3`
-* `radgraph==0.09`
-* `pytorch-lighting==2.5.1.post0`
-* `torch==2.4.1`
-* `torchvision==0.19.1`
+```txt
+transformers==4.43.3
+radgraph==0.09
+pytorch-lighting==2.5.1.post0
+torch==2.4.1
+torchvision==0.19.1
+```
 
 ---
 
-## 🧩 Model Checkpoints
+## 🧩 Model Zoo
 
-| Dataset       | Pretrained Checkpoints                                                                 | CoGaze (DistilGPT2) | Generated Free-text Reports                                                                                                           |
-|---------------|----------------------------------------------------------------------------------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| **MIMIC-CXR** | [Hugging Face](https://huggingface.co/MK-runner/CoGaze/blob/main/mimic_pretrain_best_model.pt)              | [Hugging Face](https://huggingface.co/MK-runner/CoGaze/blob/main/mimic_report_generation_best_model.pt)  | [Generated Reports](https://github.com/mk-runner/CoGaze/tree/main/generated_reports)       |
+| Dataset       | Pretrained Model                                                                                        | Report Generation Model                                                                                     | Outputs                                                                              |
+| ------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **MIMIC-CXR** | [CoGaze Pretrained Checkpoint](https://huggingface.co/MK-runner/CoGaze/blob/main/mimic_pretrain_best_model.pt) | [CoGaze (DistilGPT2)](https://huggingface.co/MK-runner/CoGaze/blob/main/mimic_report_generation_best_model.pt) | [Generated Reports](https://github.com/mk-runner/CoGaze/tree/main/generated_reports) |
+
 ---
 
-## 📁 Dataset Structure for MIMIC-CXR Dataset
+## 📁 Dataset Preparation
 
-### 1. Medical Images
+### 1️⃣ MIMIC-CXR Images
 
-CoGaze is trained on **MIMIC-CXR** dataset from [PhysioNet](https://physionet.org/content/mimic-cxr/2.0.0/).
+Dataset source: [PhysioNet](https://physionet.org/content/mimic-cxr/2.0.0/)
 
 ```
 data/
 ├── p10/
 │   └── p10000032/
 │       └── s50414267/
-│           ├── 02aa804e-....jpg
-│           └── 174413ec-....jpg
+│           ├── image1.jpg
+│           └── image2.jpg
 ├── p11/
 └── ...
 ```
 
-### 2. Radiology Reports
+---
 
-All restructured reports, including the annotation with eye-tracking data (`cogaze_mimic_cxr_annotation_similar_case_v0702_gaze.json`), the image–text pair annotation (`cogaze_mimic_cxr_annotation_similar_case_v0702_v0826.json`), and the SRRG image–text pair annotation (`cogaze_srrg_annotation_v0702_v0826.json`), are available on [Hugging Face](https://huggingface.co/MK-runner/CoGaze/tree/main/mimic-annotation).
+### 2️⃣ Annotations & Reports
 
-### 3. Checkpoint Directory Layout
+Available on 🤗 Hugging Face:
+
+* Gaze heatmap
+* Image-text pairs
+* SRRG annotations
+
+👉 [https://huggingface.co/MK-runner/CoGaze/tree/main/mimic-annotation](https://huggingface.co/MK-runner/CoGaze/tree/main/mimic-annotation)
+
+---
+
+### 3️⃣ Checkpoint Structure
 
 ```
 ckpt_zoo_dir/
 ├── chexbert.pth
 ├── radgraph/
-├── google-bert/bert-base-uncased/
-├── microsoft/BiomedVLP-CXR-BERT-specialized/
-├── microsoft/rad-dino/
-└── distilbert/distilgpt2/
+├── google-bert/
+├── microsoft/
+└── distilgpt2/
 ```
 
-> `chexbert.pth` and `radgraph` must be downloaded manually (see [MLRG](https://github.com/mk-runner/MLRG) for instructions).
+⚠️ **Manual download required:**
 
-> During training, additional checkpoints will be automatically downloaded or retrieved. You only need to specify the parameter `--online_ckpt "Yes"`.
+* `chexbert.pth`
+* `radgraph`
 
-### 4. Download Datasets for Classification and Segmentation
+See: [https://github.com/mk-runner/MLRG](https://github.com/mk-runner/MLRG)
 
-- NIH Chest X-rays: We used the [NIH Chest X-rays](https://huggingface.co/datasets/alkzar90/NIH-Chest-X-ray-dataset) dataset from Huggingface. 
+💡 Tip: Enable automatic download during training:
 
-- RSNA: We used the stage 2 data of the [RSNA Pneumonia](https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge) dataset from Kaggle.
-
-- SIIM: We used the stage 1 data of the [SIIM-ACR Pneumothorax Segmentation](https://www.kaggle.com/datasets/vbookshelf/pneumothorax-chest-xray-images-and-masks) dataset from Kaggle.
-
-- TBX11K: We used the [TBX11K Simplified](https://www.kaggle.com/datasets/vbookshelf/tbx11k-simplified) dataset from Kaggle.
-  
-- Shenzhen: We used the [Shenzhen chest X-ray set](https://openi.nlm.nih.gov/imgs/collections/ChinaSet_AllFiles.zip) dataset from NIH.
+```bash
+--online_ckpt "Yes"
+```
 
 ---
 
-## 🧠 Training & Evaluation Pipeline (MIMIC-CXR)
+### 4️⃣ Additional Datasets
+
+| Task           | Dataset                                                                                         |
+| -------------- | ----------------------------------------------------------------------------------------------- |
+| Classification | [NIH Chest X-rays](https://huggingface.co/datasets/alkzar90/NIH-Chest-X-ray-dataset)            |
+| Detection      | [RSNA Pneumonia](https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge)        |
+| Segmentation   | [SIIM-ACR](https://www.kaggle.com/datasets/vbookshelf/pneumothorax-chest-xray-images-and-masks) |
+| Tuberculosis   | [TBX11K](https://www.kaggle.com/datasets/vbookshelf/tbx11k-simplified)                          |
+| External       | [Shenzhen Dataset](https://openi.nlm.nih.gov/imgs/collections/ChinaSet_AllFiles.zip)            |
+
+---
+
+## 🧠 Training & Inference
+
+### 🔹 Pretraining
 
 ```bash
-# Pretraining (finetune mode)
 bash script/pretrain.sh
+```
 
-# Free-text Report generation (finetune mode)
+---
+
+### 🔹 Report Generation
+
+#### Free-text (Training)
+
+```bash
 bash script/free-text-report-generation-gpt2.sh
 bash script/free-text-report-generation-llm.sh
+```
 
-# Free-text Report generation (inference mode)
-bash script/free-text-report-generation-gpt2.sh  # Please set the phase to inference by using "--phase inference", and provide the "test_ckpt_path" parameter.
+#### Free-text (Inference)
 
-# Structure Report generation (finetune mode)
+```bash
+bash script/free-text-report-generation-gpt2.sh \
+  --phase inference \
+  --test_ckpt_path YOUR_MODEL_PATH
+```
+
+#### Structured Reports
+
+```bash
 bash script/structured-report-generation-gpt2.sh
 ```
 
@@ -115,27 +164,24 @@ bash script/structured-report-generation-gpt2.sh
 
 ## 📊 Evaluation
 
+### 🔹 Compute Metrics
+
 ```python
-def compute_performance_using_generated_reports():
-    from tools.metrics.metrics import compute_all_scores, compute_chexbert_details_scores
-    import pandas as pd
+from tools.metrics.metrics import compute_all_scores
+import pandas as pd
 
-    mimic_cxr_generated_path = 'generated_reports/mimic-cxr-generated-reports-24-03-2025_18-07-41.csv'
-    args = {
-        'chexbert_path': "/home/miao/data/dataset/checkpoints/chexbert.pth",
-        'bert_path': "/home/miao/data/dataset/checkpoints/bert-base-uncased",
-        'radgraph_path': "/home/miao/data/dataset/checkpoints/radgraph",
-    }
+data = pd.read_csv("generated_reports/xxx.csv")
+gts = data['reference_report'].tolist()
+gens = data['generated_report'].tolist()
 
-    data = pd.read_csv(mimic_cxr_generated_path)
-    gts, gens = data['reference_report'].tolist(), data['generated_report'].tolist()
-    scores = compute_all_scores(gts, gens, args)
-    print(scores)
+scores = compute_all_scores(gts, gens, args)
+print(scores)
 ```
 
 ---
 
-## 📊 More metrics for free-text report generation generated by CoGaze (DistilGPT2)
+### 📈 Performance (DistilGPT2)
+
 ```python
 {
     'BertScore': 0.5956377387046814,
@@ -162,28 +208,34 @@ def compute_performance_using_generated_reports():
     'CIDer': 0.3962696560568994
 }
 ```
+
 ---
 
 ## 📚 Citation
 
-If you find this work helpful, please cite:
-
 ```bibtex
-
+@article{cogaze2026,
+  title={Seeing Like Radiologists: Context- and Gaze-Guided Vision-Language Pretraining for Chest X-rays},
+  author={...},
+  year={2026}
+}
 ```
 
 ---
 
 ## 🙏 Acknowledgements
 
-* [MLRG](https://github.com/mk-runner/MLRG): Dataset organization and evaluation tools
-* [cvt2distilgpt2](https://github.com/aehrc/cvt2distilgpt2): Text generation initialization framework
+* [MLRG](https://github.com/mk-runner/MLRG) — dataset & evaluation tools
+* [cvt2distilgpt2](https://github.com/aehrc/cvt2distilgpt2) — text generation initialization
 
 ---
 
-<div align="center">
+## ⭐ Support
 
-⭐️ **If you find this repository useful, please consider starring it!**
-📬 For questions, open an issue or contact the authors.
+If you find this project useful:
 
-</div>
+* ⭐ Star this repository
+* 🐛 Open issues for questions or bugs
+* 📬 Contact Kang Liu (kangliu422@gmail.com) for collaboration
+
+---
