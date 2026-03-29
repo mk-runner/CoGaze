@@ -2,7 +2,7 @@
 
 # 🩺 CoGaze: Seeing Like Radiologists: Context- and Gaze-Guided Vision-Language Pretraining for Chest X-rays
 
-[![arXiv](https://img.shields.io/badge/arXiv-2508.05353-b31b1b.svg)](https://arxiv.org/abs/2508.05353)
+[![arXiv](https://img.shields.io/badge/arXiv-2508.05353-b31b1b.svg)](https://arxiv.org/abs/**.**)
 [![HuggingFace](https://img.shields.io/badge/🤗-HuggingFace-yellow)](https://huggingface.co/MK-runner/CoGaze)
 [![BibTeX](https://img.shields.io/badge/📖-BibTeX-yellow)](#-citation)
 
