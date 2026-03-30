@@ -2,7 +2,7 @@
 
 # 🩺 CoGaze: Seeing Like Radiologists: Context- and Gaze-Guided Vision-Language Pretraining for Chest X-rays
 
-[![arXiv](https://img.shields.io/badge/arXiv-2508.05353-b31b1b.svg)](https://arxiv.org/abs/**.**)
+[![arXiv](https://img.shields.io/badge/arXiv-2603.26049-b31b1b.svg)](https://arxiv.org/abs/2603.26049)
 [![HuggingFace](https://img.shields.io/badge/🤗-HuggingFace-yellow)](https://huggingface.co/MK-runner/CoGaze)
 [![BibTeX](https://img.shields.io/badge/📖-BibTeX-yellow)](#-citation)
 
@@ -212,10 +212,14 @@ print(scores)
 ## 📚 Citation
 
 ```bibtex
-@article{cogaze2026,
-  title={Seeing Like Radiologists: Context- and Gaze-Guided Vision-Language Pretraining for Chest X-rays},
-  author={...},
-  year={2026}
+@misc{2026-cogaze,
+      title={Seeing Like Radiologists: Context- and Gaze-Guided Vision-Language Pretraining for Chest X-rays}, 
+      author={Kang Liu and Zhuoqi Ma and Siyu Liang and Yunan Li and Xiyue Gao and Chao Liang and Kun Xie and Qiguang Miao},
+      year={2026},
+      eprint={2603.26049},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2603.26049}, 
 }
 ```
 
