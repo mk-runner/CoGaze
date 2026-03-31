@@ -42,7 +42,7 @@ conda activate cogaze
 
 ```txt
 transformers==4.43.3
-radgraph==0.09
+radgraph==0.0.9
 pytorch-lighting==2.5.1.post0
 torch==2.4.1
 torchvision==0.19.1
