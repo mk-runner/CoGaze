@@ -673,7 +673,7 @@ class Pretrain(pl.LightningModule):
 
     def save_finetune_checkpoint(self, status):
         state_dict = {}
-        for name, para in self.named_parameters():
+        for name, para in self.state_dict().items():
             if para.requires_grad:
                 state_dict[name] = para
         checkpoint = {
@@ -1256,7 +1256,7 @@ class ReportGeneration(pl.LightningModule):
 
     def save_finetune_checkpoint(self, status):
         state_dict = {}
-        for name, para in self.named_parameters():
+        for name, para in self.state_dict().items():
             if para.requires_grad:
                 state_dict[name] = para
         checkpoint = {
@@ -1898,7 +1898,7 @@ class ReportGenerationLLM(pl.LightningModule):
 
     def save_finetune_checkpoint(self, status):
         state_dict = {}
-        for name, para in self.named_parameters():
+        for name, para in self.state_dict().items():
             if 'image_encoder' in name or 'llm' in name or 'embed_tokens' in name:
                 continue
             state_dict[name] = para
@@ -2547,7 +2547,7 @@ class ReportGenerationLoRA(pl.LightningModule):
 
     def save_finetune_checkpoint(self, status):
         state_dict = {}
-        for name, para in self.named_parameters():
+        for name, para in self.state_dict().items():
             if 'image_encoder' in name or 'llm' in name or 'embed_tokens' in name:
                 continue
             state_dict[name] = para
