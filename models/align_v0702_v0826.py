@@ -313,7 +313,7 @@ class Pretrain(pl.LightningModule):
         global_instance_loss = (loss_image + loss_text) / 2.0
         return global_instance_loss
 
-    def soft_gaze_guidance(self, image_feat, transcript_feat, gaze_heatmap, dicom_id, transcript_id, topk_ratio=0.25):
+    def soft_gaze_guidance(self, image_feat, transcript_feat, gaze_heatmap, dicom_id, transcript_id, topk_ratio=0.25, lambda_value=0.8):
         """
 
         Args:
@@ -350,7 +350,7 @@ class Pretrain(pl.LightningModule):
             # compute logis and kl_divergence loss (transcript -> image)
             t2i_logis = logit_scale * valid_transcript_feat @ valid_image_feat.T
             # we can explore different topk_ratios (default is 0.25)
-            kl_loss = bidirectional_js_loss_dynamic(t2i_logis, t2i_heatmap, topk_ratio=topk_ratio, i2t_weight=0.2)
+            kl_loss = bidirectional_js_loss_dynamic(t2i_logis, t2i_heatmap, topk_ratio=topk_ratio, i2t_weight=lambda_value)
             kl_individual.append(kl_loss)
 
         kl_loss = sum(kl_individual) / len(kl_individual)
