@@ -673,12 +673,11 @@ class Pretrain(pl.LightningModule):
 
     def save_finetune_checkpoint(self, status):
         state_dict = {}
-        for name, para in self.state_dict().items():
-            if para.requires_grad:
-                state_dict[name] = para
+        for name, tensor in self.state_dict().items():
+            if not name.startswith('image_encoder.'):
+                state_dict[name] = tensor.detach().cpu().clone()
         checkpoint = {
             'state_dict': state_dict,
-            'optimizer_state': self.trainer.optimizers[0].state_dict(),
             'epoch': self.current_epoch
         }
         torch.save(checkpoint, f'{self.args["ckpt_dir"]}/best_model.pt')
@@ -1256,17 +1255,15 @@ class ReportGeneration(pl.LightningModule):
 
     def save_finetune_checkpoint(self, status):
         state_dict = {}
-        for name, para in self.state_dict().items():
-            if para.requires_grad:
-                state_dict[name] = para
+        for name, tensor in self.state_dict().items():
+            if not name.startswith('image_encoder.'):
+                state_dict[name] = tensor.detach().cpu().clone()
         checkpoint = {
             'state_dict': state_dict,
-            'optimizer_state': self.trainer.optimizers[0].state_dict(),
             'epoch': self.current_epoch
         }
         torch.save(checkpoint, f'{self.args["ckpt_dir"]}/best_model.pt')
         print(f"The {status} model is saved on epoch {self.current_epoch}!")
-        self.log_once(f"The {status} model is saved on epoch {self.current_epoch}!")
 
 
 
@@ -2560,7 +2557,7 @@ class ReportGenerationLoRA(pl.LightningModule):
             'state_dict': state_dict,
             'lora_state_dict': lora_state_dict,
             'lora_config': lora_config,
-            'optimizer_state': self.trainer.optimizers[0].state_dict(),
+            # 'optimizer_state': self.trainer.optimizers[0].state_dict(),
             'epoch': self.current_epoch
         }
         torch.save(checkpoint, f'{self.args["ckpt_dir"]}/{status}_model.pt')
